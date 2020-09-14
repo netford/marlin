@@ -29,19 +29,6 @@ function add_user($email, $password) {
         string - $name (ключ)
         string - $message (знчение, текст сообщения)
 
-    Description: добавить пользователя в БД
-
-    Return value: null
-**/
-function add_user($email, $password) {
-
-};
-
-/**
-    Parametrs:
-        string - $name (ключ)
-        string - $message (знчение, текст сообщения)
-
     Description: подготовить флеш сообщение
 
     Return value: null
