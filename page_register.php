@@ -43,7 +43,7 @@ require "function.php";
                         <span class="text-white opacity-50 ml-auto mr-2 hidden-sm-down">
                             Уже зарегистрированы?
                         </span>
-                        <a href="page_login.html" class="btn-link text-white ml-auto ml-sm-0">
+                        <a href="page_login.php" class="btn-link text-white ml-auto ml-sm-0">
                             Войти
                         </a>
                     </div>
@@ -64,26 +64,41 @@ require "function.php";
                             </div>
                             <div class="col-xl-6 ml-auto mr-auto">
                                 <div class="card p-4 rounded-plus bg-faded">
-                                        <?php display_flash_message("danger"); ?>
-                                    <form id="js-login" novalidate="" action="send.php">
-                                        <div class="form-group">
-                                            <label class="form-label" for="emailverify">Email</label>
-                                            <input type="email" id="emailverify" class="form-control" placeholder="Эл. адрес" nama="email" required>
-                                            <div class="invalid-feedback">Заполните поле.</div>
-                                            <div class="help-block">Эл. адрес будет вашим логином при авторизации</div>
+                                    <?php if (isset($_SESSION["danger"])): ?>
+                                        <div class="alert alert-danger text-dark" role="alert">
+                                            <?php echo $_SESSION["danger"];
+                                            unset ($_SESSION['danger']);
+                                            ?>
                                         </div>
-                                        <div class="form-group">
-                                            <label class="form-label" for="userpassword">Пароль <br></label>
-                                            <input type="password" id="userpassword" class="form-control" placeholder="" name="password" required>
-                                            <div class="invalid-feedback">Заполните поле.</div>
-                                        </div>
+                                    <?php endif ?>
 
-                                        <div class="row no-gutters">
-                                            <div class="col-md-4 ml-auto text-right">
-                                                <button id="js-login-btn" type="submit" class="btn btn-block btn-danger btn-lg mt-3">Регистрация</button>
-                                            </div>
+                                    <?php if (isset($_SESSION["success"])): ?>
+                                        <div class="alert alert-success text-dark" role="alert">
+                                            <?php echo $_SESSION["success"];
+                                            unset ($_SESSION['success']);
+                                            ?>
                                         </div>
-                                    </form>
+                                        <?php endif ?>
+                                        <form id="js-login" novalidate="" action="reg_user.php" method="post">
+                                            <div class="form-group">
+                                                <label class="form-label" for="emailverify">Email</label>
+                                                <input type="email" id="emailverify" class="form-control" placeholder="Эл. адрес" name="email" required>
+                                                <div class="invalid-feedback">Заполните поле.</div>
+                                                <div class="help-block">Эл. адрес будет вашим логином при авторизации</div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="form-label" for="userpassword">Пароль <br></label>
+                                                <input type="password" id="userpassword" class="form-control" placeholder="" name="password" required>
+                                                <div class="invalid-feedback">Заполните поле.</div>
+                                            </div>
+
+                                            <div class="row no-gutters">
+                                                <div class="col-md-4 ml-auto text-right">
+                                                    <button id="js-login-btn" type="submit" class="btn btn-block btn-danger btn-lg mt-3">Регистрация</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -91,12 +106,11 @@ require "function.php";
                 </div>
             </div>
         </div>
-    </div>
 
-    <script src="js/vendors.bundle.js"></script>
-    <script>
-        $("#js-login-btn").click(function(event)
-        {
+        <script src="js/vendors.bundle.js"></script>
+        <script>
+            $("#js-login-btn").click(function(event)
+            {
 
             // Fetch form to apply custom Bootstrap validation
             var form = $("#js-login")
